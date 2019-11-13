@@ -14,21 +14,27 @@ int* toPostfix(int *infix, int size) {
 					while(operator != NULL
 						&&(operator->data == (int)'+'
 						||operator->data == (int)'-'
-						||operator->data == (int)'*'))
-						*(postfix + index++) = c;
+						||operator->data == (int)'*')) {
+						*(postfix + index++) = operator->data;
+						pop_back(&operator);
+					}
 					push_back(&operator, c);
 					break;
 				case '-':
 					while(operator != NULL
 						&&(operator->data == (int)'+'
 						||operator->data == (int)'-'
-						||operator->data == (int)'*'))
-						*(postfix + index++) = c;
+						||operator->data == (int)'*')) {
+						*(postfix + index++) = operator->data;
+						pop_back(&operator);
+					}
 					push_back(&operator, c);
 					break;
 				case '*':
-					while(operator != NULL && operator->data == (int)'*')
-						*(postfix + index++) = c;
+					while(operator != NULL && operator->data == (int)'*') {
+						*(postfix + index++) = operator->data;
+						pop_back(&operator);
+					}
 					push_back(&operator, c);
 					break;
 				case '(':
@@ -43,6 +49,8 @@ int* toPostfix(int *infix, int size) {
 					printf("you conveyed incorrect sentence with other operators.\n");
 					exit(1);
 			}
+		} else {
+			*(postfix + index++) = c;
 		}
 	}
 	while(isEmpty(operator) == 0)
