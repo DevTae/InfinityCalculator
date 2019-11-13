@@ -8,6 +8,11 @@ int main(void) {
 	int size = input_expression(&expr);
 	printf("size : %d\n", size);
 	printList(expr);
+	printf("\nafter: ");
+	int* postfix = toPostfix(expr, size);
+	printList(postfix);
+	printf("\n");
 	free(expr);
+	free(postfix);
 	return 0;
 }
