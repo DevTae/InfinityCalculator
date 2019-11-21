@@ -19,17 +19,3 @@ int input_expression(int** expr) {
 	*(*expr + i++) = '\0';
 	return i; // return size of array.
 }
-
-//int* 
-
-// this function is only built to make decrete integer to continuous numeric data.
-List makeList(int* num) {
-	List newList;
-	newList->previous = '\0';
-	int data;
-	for(int i = 0; i < *(num+i) != '\0'; i++) {
-		// practice mode. input data can be entered in one digit value.
-		// we have to make a function, guaranteeing many digit value can be entered.
-		//*(expr + i) = 
-	}
-}

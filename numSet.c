@@ -1,13 +1,7 @@
-/* linked_list.c */
+/* numSet.c */
 #include "calculator.h"
 
 // bidirection-linked-list
-struct linked_list {
-	int data;
-	struct linked_list* left;
-	struct linked_list* right;
-};
-// typedef struct linked_list numSet;
 
 int isEndL(const numSet *set) {
 	if(set->left == NULL) return 1;
@@ -50,21 +44,20 @@ void push_backR(numSet** set, int data) {
 void printSetL(numSet* set) {
 	while(isEndL(set) == 0) set = set->left;
 	while(isEndR(set) == 0) {
-		printf("%d ", set->data);
+		printf("%09d ", set->data);
 		set = set->right;
 	}
-	printf("%d\n", set->data);
+	printf("%09d", set->data);
 }
 
 void printSetR(numSet* set) {
 	while(isEndR(set) == 0) {
-		printf("%d ", set->data);
+		printf("%09d ", set->data);
 		set = set->right;
 	}
-	printf("%d\n", set->data);
+	printf("%09d\n", set->data);
 }
 
-// below this line, there are no use functions now.
 int rtn_dataL(numSet* set, int index) {
 	for(int i = 1; i < index; i++) {
 		set = set->left;
@@ -79,7 +72,7 @@ int rtn_dataR(numSet* set, int index) {
 	return set->data;
 }
 
-// prototype test code 
+/* prototype test code 
 int main(void) {
 	numSet* left = NULL;
 	push_backL(&left, 3224224);
@@ -97,4 +90,4 @@ int main(void) {
 			rtn_dataR(right, 2), rtn_dataR(right, 3));
 
 	return 0;
-}
+}*/
