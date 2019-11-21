@@ -35,14 +35,16 @@ void push_backL(numSet** set, int data) {
 void push_backR(numSet** set, int data) {
 	numSet *newNumSet = (numSet*)malloc(sizeof(numSet));
 	newNumSet->data = data;
-	newNumSet->left = NULL;
+	newNumSet->right = NULL;
+
 	if(*set == NULL) {
-		newNumSet->right = NULL;
+		newNumSet->left = NULL;
+		*set = newNumSet;
 	} else {
-		newNumSet->right = *set;
-		(*set)->left = newNumSet;
+		numSet* temp = *set;
+		for(; isEndR(temp) == 0; temp = temp->right);
+		temp->right = newNumSet;
 	}
-	*set = newNumSet;
 }
 
 void printSetL(numSet* set) {
@@ -86,5 +88,13 @@ int main(void) {
 	printSetL(left);
 	printf("rtn_dataL: 1:%d, 2:%d, 3:%d\n", rtn_dataL(left, 1),
 			rtn_dataL(left, 2), rtn_dataL(left, 3));
+	numSet* right = NULL;
+	push_backR(&right, 41414141);
+	push_backR(&right, 23232323);
+	push_backR(&right, 12121212);
+	printSetR(right);
+	printf("rtndataR: 1:%d, 2:%d, 3:%d\n", rtn_dataR(right, 1),
+			rtn_dataR(right, 2), rtn_dataR(right, 3));
+
 	return 0;
 }
