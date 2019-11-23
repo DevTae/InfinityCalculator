@@ -2,34 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct stack {
-	//Element data;
-	int data;
-	struct stack* next;
-};
-
-typedef struct stack Stack;
-
-struct bidirection_linked_list {
-	//Element data; temp
-	int data;
-	struct bidirection_linked_list* previous;
-	struct bidirection_linked_list* next;
-};
-
-typedef struct bidirection_linked_list *Link;
-typedef Link Element; // Link is the pointer of expression.
-typedef Element List; // one element that show its value.
-
-// inputPrcess.c
+// inputProcess.c
 int input_expression(int**);
-List makeList(int*);
-Element makeElement(int*);
 
 // outputProcess.c
 void printList(int*);
 
 // stack.c
+struct stack {
+	int data;
+	struct stack* next;
+};
+typedef struct stack Stack;
 Stack* new_node(int);
 void push_back(Stack**, int);
 int pop_back(Stack**);
@@ -38,3 +22,29 @@ void print(Stack*);
 
 // in-postfix.c
 int* toPostfix(int*, int);
+
+// numSet.c
+struct linked_list {
+	int data;
+	struct linked_list* left;
+	struct linked_list* right;
+};
+typedef struct linked_list numSet;
+int isEndL(const numSet*);
+int isEndR(const numSet*);
+void push_backL(numSet**, int);
+void push_backR(numSet**, int);
+void printSetL(numSet*);
+void printSetR(numSet*);
+
+// infinite.c
+struct infinite {
+	int isOpposite;
+	numSet *left;
+	numSet *right;
+};
+typedef struct infinite infinite;
+numSet* makeSetL(infinite**, char*);
+numSet* makeSetR(infinite**, char*);
+char* substring(char *, char[], int, int);
+infinite* initialize(char*);
