@@ -40,7 +40,7 @@ void printSetR(numSet*);
 
 // infinite.c
 struct infinite {
-	int isOpposite;
+	int isMinus;
 	numSet *left;
 	numSet *right;
 };
