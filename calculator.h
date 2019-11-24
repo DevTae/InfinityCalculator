@@ -41,6 +41,8 @@ int rtn_dataL(numSet*, int);
 int rtn_dataR(numSet*, int);
 int rtn_sizeL(numSet*);
 int rtn_sizeR(numSet*);
+int rtn_topL(numSet*);
+int rtn_topR(numSet*);
 void chg_dataL(numSet**, int, int);
 void chg_dataR(numSet**, int, int);
 
@@ -55,4 +57,9 @@ numSet* makeSetL(infinite**, char*);
 numSet* makeSetR(infinite**, char*);
 char* substring(char *, char[], int, int);
 infinite* initialize(char*);
+
+// calculate.c
+int math_pow(int, int);
+int intlen(int);
+infinite* multiply(infinite*, infinite*);
 

@@ -93,6 +93,20 @@ int rtn_sizeR(numSet* set) {
 	return ++size;
 }
 
+int rtn_topL(numSet* set) {
+	while(isEndL(set) == 0) {
+		set = set->left;
+	}
+	return set->data;
+}
+
+int rtn_topR(numSet* set) {
+	while(isEndR(set) == 0) {
+		set = set->right;
+	}
+	return set->data;
+}
+
 void chg_dataL(numSet** set, int index, int val) {
 	numSet* temp = *set;
 	for(int i = 0; i < index-1; i++) {

@@ -90,6 +90,7 @@ int main() {
 	printSetL(inf->left);
 	printf(".");
 	printSetR(inf->right);
+	printf("\n\n%d\n", rtn_topR(inf->right));
 	return 0;
 }
 
