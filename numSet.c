@@ -30,7 +30,6 @@ void push_backR(numSet** set, int data) {
 	numSet *newNumSet = (numSet*)malloc(sizeof(numSet));
 	newNumSet->data = data;
 	newNumSet->right = NULL;
-
 	if(*set == NULL) {
 		newNumSet->left = NULL;
 		*set = newNumSet;
@@ -43,6 +42,8 @@ void push_backR(numSet** set, int data) {
 
 void printSetL(numSet* set) {
 	while(isEndL(set) == 0) set = set->left;
+	//printf("%d", set->data);
+	//set = set->right;
 	while(isEndR(set) == 0) {
 		printf("%09d ", set->data);
 		set = set->right;
@@ -70,6 +71,42 @@ int rtn_dataR(numSet* set, int index) {
 		set = set->right;
 	}
 	return set->data;
+}
+
+int rtn_sizeL(numSet* set) {
+	if(set == NULL) return 0; // if havent element left of the point, rtn 0.
+	int size = 0;
+	while(isEndL(set) == 0) {
+		++size;
+		set = set->left;
+	}
+	return ++size;
+}
+
+int rtn_sizeR(numSet* set) {
+	if(set == NULL) return 0; // if havent element left of the point, rtn 0.
+	int size = 0;
+	while(isEndR(set) == 0) {
+		++size;
+		set = set->right;
+	}
+	return ++size;
+}
+
+void chg_dataL(numSet** set, int index, int val) {
+	numSet* temp = *set;
+	for(int i = 0; i < index-1; i++) {
+		temp = temp->left;
+	}
+	temp->data = val;
+}
+
+void chg_dataR(numSet** set, int index, int val) {
+	numSet* temp = *set;
+	for(int i = 0; i < index-1; i++) {
+		temp = temp->right;
+	}
+	temp->data = val;
 }
 
 /* prototype test code 

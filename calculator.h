@@ -37,6 +37,12 @@ void push_backL(numSet**, int);
 void push_backR(numSet**, int);
 void printSetL(numSet*);
 void printSetR(numSet*);
+int rtn_dataL(numSet*, int);
+int rtn_dataR(numSet*, int);
+int rtn_sizeL(numSet*);
+int rtn_sizeR(numSet*);
+void chg_dataL(numSet**, int, int);
+void chg_dataR(numSet**, int, int);
 
 // infinite.c
 struct infinite {
@@ -49,3 +55,4 @@ numSet* makeSetL(infinite**, char*);
 numSet* makeSetR(infinite**, char*);
 char* substring(char *, char[], int, int);
 infinite* initialize(char*);
+

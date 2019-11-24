@@ -84,6 +84,12 @@ int main() {
 	printSetL(inf->left);
 	printf(".");
 	printSetR(inf->right);
+	printf("\nfunction test.\n");
+	printf("left size:%d right size:%d\n", rtn_sizeL(inf->left), rtn_sizeR(inf->right));
+	chg_dataL(&(inf->left), 3, 200000);
+	printSetL(inf->left);
+	printf(".");
+	printSetR(inf->right);
 	return 0;
 }
 
