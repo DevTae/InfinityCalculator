@@ -4,12 +4,12 @@
 // bidirection-linked-list
 
 int isEndL(const numSet *set) {
-	if(set->left == NULL) return 1;
+	if(set == NULL || set->left == NULL) return 1;
 	else return 0;
 }
 
 int isEndR(const numSet *set) {
-	if(set->right == NULL) return 1;
+	if(set == NULL || set->right == NULL) return 1;
 	else return 0;
 }
 
@@ -41,9 +41,10 @@ void push_backR(numSet** set, int data) {
 }
 
 void printSetL(numSet* set) {
+	if(set == NULL) return;
 	while(isEndL(set) == 0) set = set->left;
-	//printf("%d", set->data);
-	//set = set->right;
+	printf("%d", set->data);
+	set = set->right;
 	while(isEndR(set) == 0) {
 		printf("%09d ", set->data);
 		set = set->right;
@@ -52,11 +53,17 @@ void printSetL(numSet* set) {
 }
 
 void printSetR(numSet* set) {
+	if(set == NULL) return;
 	while(isEndR(set) == 0) {
 		printf("%09d ", set->data);
 		set = set->right;
 	}
-	printf("%09d\n", set->data);
+	int data = set->data;
+	// 마지막 의미 없는 숫자 0 제거
+	while(data % 10 == 0) {
+		data /= 10;
+	}
+	printf("%d\n", set->data);
 }
 
 int rtn_dataL(numSet* set, int index) {
@@ -115,12 +122,59 @@ void chg_dataL(numSet** set, int index, int val) {
 	temp->data = val;
 }
 
+// 오른쪽의 numSet의 index번째 원소의 값을 수정한다. change
 void chg_dataR(numSet** set, int index, int val) {
 	numSet* temp = *set;
 	for(int i = 0; i < index-1; i++) {
 		temp = temp->right;
 	}
 	temp->data = val;
+}
+
+// 0인 top 데이터를 하나씩 지운다. clean data
+void cln_dataL(numSet** set) {
+	if(*set == NULL) return;
+	numSet* del = *set;
+	int index = 1;
+	while(isEndL(del) == 0) {
+		printf("1");
+		del = del->left;
+		index++;
+	}
+	while(index > 0 && rtn_dataL(del, index--) == 0) {
+		if(index != 1) {
+			printf(":%d:", index);
+			numSet* tmp = del;
+			del = del->right;
+
+			free(tmp);
+		} else { // if index is 1
+			free(del = *set);
+			*set = NULL;
+			break;
+		}
+	}
+}
+
+void cln_dataR(numSet** set) {
+	if(*set == NULL) return;
+	numSet* del = *set;
+	int index = 1;
+	while(isEndR(del) == 0) {
+		del = del->right;
+		index++;
+	}
+	while(index > 0 && rtn_dataR(del, index--) == 0) {
+		if(index != 1) {
+			numSet* tmp = del;
+			del = del->left;
+			free(tmp);
+		} else { // if index is 1
+			free(del = *set);
+			*set = NULL;
+			break;
+		}
+	}
 }
 
 /* prototype test code 

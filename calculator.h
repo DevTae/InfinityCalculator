@@ -2,12 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX(a,b) (a > b) ? a : b
-
-// inputProcess.c
-int input_expression(int**);
-
-// outputProcess.c
-void printList(int*);
+#define MIN(a,b) (a > b) ? b : a
 
 // stack.c
 struct stack {
@@ -45,6 +40,8 @@ int rtn_topL(numSet*);
 int rtn_topR(numSet*);
 void chg_dataL(numSet**, int, int);
 void chg_dataR(numSet**, int, int);
+void cln_dataL(numSet**);
+void cln_dataR(numSet**);
 
 // infinite.c
 struct infinite {
@@ -57,9 +54,12 @@ numSet* makeSetL(infinite**, char*);
 numSet* makeSetR(infinite**, char*);
 char* substring(char *, char[], int, int);
 infinite* initialize(char*);
+void printInfinite(infinite*);
 
 // calculate.c
-int math_pow(int, int);
+infinite* add(infinite*, infinite*);
+infinite* subtract(infinite*, infinite*);
 int intlen(int);
+void put_toArr(infinite*, int***, int, int, int);
 infinite* multiply(infinite*, infinite*);
 
