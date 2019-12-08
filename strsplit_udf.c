@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctime>
 #define INSERT_NUMBER 1
 #define INSERT_OPERATOR 2
 
@@ -173,6 +174,35 @@ void strsplit_udf(char* expr, int arrSize) {
 	}
 	
 }
+
+void strsplit_udf2(char* expr) {
+	int arrSize = strlen(expr);
+	char* newNum = (char*)malloc(sizeof(char)*(arrSize+1));
+	newNum[0] = '\0';
+	int isFirstOfNum = 1, index;
+	for(int i = 0; i < arrSize; i++) {
+		if(expr[i] == '+' || expr[i] == '-' ||
+				expr[i] == '*' || expr[i] == '(' || expr[i] == ')') {
+			if(newNum[0] == '\0') isFirstOfNum = 1;
+			else {
+				newNum[index] = '\0';
+				toPostFix(newNum);
+				index = 0;
+			}
+			char oper = expr[i];
+			char* toTransfer = &oper;
+			toPostFix(toTransfer);
+		} else if(isFirstOfNum == 1) {
+			index = 0;
+			isFirstOfNum = 0;
+			newNum[index++] = expr[i];
+		} else {
+			newNum[index++] = expr[i];
+		}
+	}
+	newNum[index] = '\0';
+	toPostFix(newNum);
+}
 //Receive expression
 char* recv_expr() {
 	FILE* ifp = fopen("input.txt", "r");
@@ -194,7 +224,17 @@ char* recv_expr() {
 int main(void) {
 	char* expr = recv_expr();
 	printf("%s\n", recv_expr());
+	clock_t start = clock();
 	strsplit_udf(expr, strlen(expr));
+	clock_t middle = clock();
+	expr = recv_expr();
+	clock_t middle2 = clock();
+	strsplit_udf2(expr);
+	clock_t end = clock();
+	// 비슷한 부분 찾아서 그 순간을 기점으로 위아래 나누자 ㅋ
+	printf("strlen(expr) = %d\n", (int)strlen(expr));
+	printf("\n\n\nresult : strsplit_udf(%0.5fs)\nstrsplit_udf2(%0.5fs)\n"
+			,(float)(middle-start)/CLOCKS_PER_SEC, (float)(end-middle2)/CLOCKS_PER_SEC);
 	//printf("%s", expr);
 	//free(expr);
 	return 0;
