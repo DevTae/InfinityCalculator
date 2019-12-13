@@ -1,6 +1,7 @@
 // calculate.c
 #include "calculator.h"
-#include <string.h>
+
+// 포인터 적용한 것으로 스트링 관련 함수 재정비 필요 있음.
 
 // 더하기 함수
 infinite* add(infinite* a, infinite* b) {
@@ -65,7 +66,7 @@ infinite* add(infinite* a, infinite* b) {
 
 
 // 빼기 함수
-
+// 큰거에서 작은거 뺄때랑 작은거에서 큰거 뺄때의 차이점 구분
 infinite* subtract(infinite* a, infinite* b) {
     char* trash = "000000000";
     char* store = "";
@@ -126,15 +127,6 @@ infinite* subtract(infinite* a, infinite* b) {
         }
     }
 
-	// 총 결과값이 음수가 나오는 경우:
-	int topData = rtn_dataL(result->left, sizeL);
-	if(topData < 0) {
-		result->isMinus = 1;
-		chg_dataL(&(result->left), sizeL, -topData);
-	} else {
-		result->isMinus = 0;
-	}
-	
 	return result;
 }
 
@@ -251,7 +243,7 @@ infinite* multiply(infinite* a, infinite* b) {
 	printf(" * 10^(%d)\n", aCardinal+bCardinal);
 
 	// make a char* with starting not '0'.
-	char expr[100000] = "";
+	char expr[100000] = ""; //
 	int isFirst = 1;
 	int length = 0;	
 	for(int i = 0; i < arr_col; i++) {
@@ -261,7 +253,7 @@ infinite* multiply(infinite* a, infinite* b) {
 		length++;
 	}
 	
-	char tmp[100000];
+	char tmp[100000]; // buffer
 	char result[100000] = "";
 	if(afterCardinal < 0) {
 		strcat(result, substring(tmp, expr, 0, arr_col - (-afterCardinal)));
@@ -272,17 +264,17 @@ infinite* multiply(infinite* a, infinite* b) {
 	}
 	printf("%s\n\n", result);
 	
-	// freeing of the memory allocated.
+	// freeing of the allocated memory.
 	for(int i = 0; i < arr_row; i++)
 		free(*(board+i));
-	free(board); //segmentation fault. x
+	free(board);
 
 	infinite* newinf = initialize(result);
 	//cln_dataL(&(newinf->left));
 	//cln_dataR(&(newinf->right));
 	return newinf;
 }
-
+/*
 // test with main function!
 int main(void) {
 	infinite* a = initialize("101.1122");
@@ -293,4 +285,4 @@ int main(void) {
 	c = subtract(a, b);
 	//printInfinite(c);
 	return 0;
-}
+}*/

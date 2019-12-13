@@ -1,8 +1,13 @@
 /* calculator.h */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX(a,b) (a > b) ? a : b
 #define MIN(a,b) (a > b) ? b : a
+#define INSERT_NUMBER 1 	// 0001
+#define INSERT_OPERATOR 2	// 0010
+#define INSERT_FIRST 4		// 0100
+#define INSERT_END 8		// 1000
 
 // stack.c
 struct stack {
@@ -17,7 +22,8 @@ int isEmpty(Stack*);
 void print(Stack*);
 
 // in-postfix.c
-int* toPostfix(int*, int);
+char* storeExpr(char*, const int, const int);
+char* toPostFix(char*);
 
 // numSet.c
 struct linked_list {

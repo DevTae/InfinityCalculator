@@ -17,7 +17,7 @@ numSet* makeSetL(infinite** inf, char *num) {
 	if (remain != 0) {
 		push_backL(&left, atoi(substring(a, num, 0, remain)));
 	}
-	for(int i = 0; length-remain-9*i; i++) {
+	for(int i = 0; length-remain-9*i > 0; i++) {
 		push_backL(&left, atoi(substring(a, num, remain+(9*i), 9)));
 	}
 	return left;

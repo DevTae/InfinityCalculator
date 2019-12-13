@@ -17,7 +17,9 @@ void push_back(Stack **stack, int data) {
 
 int pop_back(Stack **stack) {
 	int data = (*stack)->data;
+	Stack* temp = *stack;
 	(*stack) = (*stack)->next;
+	free(temp);
 	return data;
 }
 

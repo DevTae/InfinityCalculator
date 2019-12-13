@@ -203,23 +203,7 @@ void strsplit_udf2(char* expr) {
 	newNum[index] = '\0';
 	toPostFix(newNum);
 }
-//Receive expression
-char* recv_expr() {
-	FILE* ifp = fopen("input.txt", "r");
-	char* expr = NULL;
-	char c;
-	int size = 0;
-	while(fscanf(ifp, "%c", &c) == 1) size++;
-	expr = (char*)malloc(sizeof(char) * (size+1));
-	rewind(ifp);
-	// 파일 읽었던 기록 지우고 다시 처음으로. 
-	int i = 0;
-	while(fscanf(ifp, "%c", &c) == 1) {
-		*(expr + i++) = c;
-	}
-	*(expr + i) = '\0';
-	return expr;
-}
+
 // entry point
 int main(void) {
 	char* expr = recv_expr();
