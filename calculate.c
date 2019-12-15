@@ -244,7 +244,7 @@ infinite* multiply(infinite* a, infinite* b) {
 		*(*(board + arr_row-1) + i) %= 10;
 	}
 
-	
+	/*	
 	for(int i = 0; i < arr_col; i++)
 		printf("%d ", *(*(board+0)+i));
 	printf(" * 10^(%d)\n", aCardinal);
@@ -255,7 +255,7 @@ infinite* multiply(infinite* a, infinite* b) {
 	for(int i = 0; i < arr_col; i++)
 		printf("%d ", *(*(board+arr_row-1)+i));
 	printf(" * 10^(%d)\n", aCardinal+bCardinal);
-	
+	*/
 
 	char* expr = (char*)malloc(sizeof(char)*(arr_col+1)); // not freed.
 	*expr = '\0';

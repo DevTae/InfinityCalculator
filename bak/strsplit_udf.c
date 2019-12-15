@@ -5,6 +5,25 @@
 #define INSERT_NUMBER 1
 #define INSERT_OPERATOR 2
 
+//Receive expression
+char* recv_expr(char *fname) {
+	FILE* ifp = fopen(strcat(fname, ".txt"), "r");
+	char* expr = NULL;
+	char c;
+	int size = 0;
+	while(fscanf(ifp, "%c", &c) == 1) size++;
+	expr = (char*)malloc(sizeof(char) * (size + 1));
+	rewind(ifp);
+	// 파일 읽었던 기록 지우고 다시 처음으로. 
+	int i = 0;
+	while(fscanf(ifp, "%c", &c) == 1) {
+		*(expr + i++) = c;
+	}
+	*(expr + i) = '\0';
+	fclose(ifp);
+	return expr;
+}
+
 // return smaller pointer
 char* rtn_smlP(char* a, char* b) {
 	if(a == NULL) {
@@ -175,8 +194,7 @@ void strsplit_udf(char* expr, int arrSize) {
 	
 }
 
-void strsplit_udf2(char* expr) {
-	int arrSize = strlen(expr);
+void strsplit_udf2(char* expr, int arrSize) {
 	char* newNum = (char*)malloc(sizeof(char)*(arrSize+1));
 	newNum[0] = '\0';
 	int isFirstOfNum = 1, index;
@@ -205,15 +223,16 @@ void strsplit_udf2(char* expr) {
 }
 
 // entry point
-int main(void) {
-	char* expr = recv_expr();
-	printf("%s\n", recv_expr());
+int main(int argc, char* argv[]) {
+	// 함수 하나만 사용해야 함.
+	char* expr = recv_expr(argv[1]);
+	printf("%s\n", argv[1]);
 	clock_t start = clock();
 	strsplit_udf(expr, strlen(expr));
 	clock_t middle = clock();
-	expr = recv_expr();
+	char* expr1 = recv_expr(argv[1]);
 	clock_t middle2 = clock();
-	strsplit_udf2(expr);
+	strsplit_udf2(expr1, strlen(expr1));
 	clock_t end = clock();
 	// 비슷한 부분 찾아서 그 순간을 기점으로 위아래 나누자 ㅋ
 	printf("strlen(expr) = %d\n", (int)strlen(expr));

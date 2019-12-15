@@ -22,7 +22,7 @@ long long getElapsedTime(unsigned int nFlag)
 
 	return retDiff;
 }
-
+/*
 int main(const int argc, char **argv)
 {
 	getElapsedTime(0);
@@ -33,3 +33,4 @@ int main(const int argc, char **argv)
 
 	return 0;
 }
+*/

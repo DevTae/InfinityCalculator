@@ -57,15 +57,15 @@ int main(const int argc, char **argv)
 	
 	// Reading expression will be calculated.
 	char* expr = recv_expr(argv[1]);
-	printf("%s", expr);
+	//printf("%s", expr);
 	
 	// Transform expr to PostFix Expression.
 	char* postfix = toPostFix(expr);
-	printf("%s\n", postfix);
+	//printf("%s\n", postfix);
 
 	// Decrpyt the expression transformed to postfix.
 	infinite* result = decrypt(postfix);
-	printf("result:\n");
+	//printf("result:\n");
 	printInfinite(result);
 	
 	//cln_dataL, cln_dataR 구현 및 사용
