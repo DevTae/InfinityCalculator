@@ -66,7 +66,13 @@ char* storeExpr(char *elem, const int option, const int size) {
 				push_back(&operator, (int)*elem);
 				break;
 			case '(':
-				push_back(&operator, (int)*elem);
+				{strcat(result, " ");
+				char* tmp = (char*)malloc(sizeof(char) * 2);
+				*tmp = '(';
+				*(tmp+1) = '\0';
+				strcat(result, tmp);
+				free(tmp);
+				push_back(&operator, (int)*elem);}
 				break;
 			case ')':
 				while(operator->data != '(') {
@@ -79,6 +85,12 @@ char* storeExpr(char *elem, const int option, const int size) {
 					pop_back(&operator);
 				}
 				pop_back(&operator); // garbage delete
+				{strcat(result, " ");
+				char* tmp = (char*)malloc(sizeof(char) * 2);
+				*tmp = ')';
+				*(tmp+1) = '\0';
+				strcat(result, tmp);
+				free(tmp);}
 				break;
 			default:
 				printf("You conveyed incorrect sentence with other operators.\n");

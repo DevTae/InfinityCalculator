@@ -5,7 +5,7 @@
 
 //Receive expression
 char* recv_expr(char *fname) {
-	FILE* ifp = fopen(strcat(fname, ".txt"), "r");
+	FILE* ifp = fopen(fname, "r"); // .txt 안붙임.
 	char* expr = NULL;
 	char c;
 	int size = 0;
@@ -62,12 +62,14 @@ int main(const int argc, char **argv)
 	// Transform expr to PostFix Expression.
 	char* postfix = toPostFix(expr);
 	printf("%s\n", postfix);
-	
+
 	// Decrpyt the expression transformed to postfix.
-//	Infinite* result = decrypt(postfix);
-	// printsetL printsetR 구현 및 사용
+	infinite* result = decrypt(postfix);
+	printf("result:\n");
+	printInfinite(result);
 	
 	//cln_dataL, cln_dataR 구현 및 사용
+	
 	free(expr);
 	free(postfix);
 
