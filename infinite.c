@@ -123,8 +123,60 @@ int infcmp(infinite* first, infinite* second) {
 	else if(fsizeR < ssizeR) return -1;
 }
 
-// cln_dataInf() needs
+void freeInfinite(infinite** inf) {
+	numSet* nsl = (*inf)->left;
+	numSet* nsr = (*inf)->right;
 
+	if(nsl != NULL) { // left freeing
+		while(isEndL(nsl) == 0) {
+			numSet* tmp = nsl;
+			nsl = nsl->left;
+			free(tmp);
+		}
+		if(nsl != NULL) free(nsl);
+	}
+	if(nsr != NULL) { // right freeing
+		while(isEndR(nsr) == 0) {
+			numSet* tmp = nsr;
+			nsr = nsr->right;
+			free(tmp);
+		}
+		if(nsr != NULL) free(nsr);
+	}
+	if(*inf != NULL) free(*inf);
+}
+
+
+/*
+void freeInfinite(infinite** inf) {
+	numSet* nsl = (*inf)->left;
+	numSet* nsr = (*inf)->right;
+
+	if(nsl != NULL) { // left freeing
+		while(isEndL(nsl) == 0) {
+			nsl = nsl->left;
+		}
+		while(isEndR(nsl) == 0) {
+			numSet* tmp = nsl;
+			nsl = nsl->right;
+			free(tmp);
+		}
+		if(nsl != NULL) free(nsl);
+	}
+	if(nsr != NULL) { // right freeing
+		while(isEndR(nsr) == 0) {
+			nsr = nsr->right;
+		}
+		while(isEndL(nsr) == 0) {
+			numSet* tmp = nsr;
+			nsr = nsr -> left;
+			free(tmp);
+		}
+		if(nsr != NULL) free(nsr);
+	}
+	free(*inf);
+}
+*/
 /*
 // testing function main
 int main() {

@@ -166,6 +166,7 @@ void cln_dataL(numSet** set) {
 	}
 }
 
+// 작동 이상
 void cln_dataR(numSet** set) {
 	if(*set == NULL) return;
 	numSet* pin = *set;
