@@ -6,6 +6,10 @@
 //Receive expression
 char* recv_expr(char *fname) {
 	FILE* ifp = fopen(fname, "r"); // .txt 안붙임.
+	if(ifp == NULL) {
+		printf("File not detected!\n");
+		exit(0);
+	}
 	char* expr = NULL;
 	char c;
 	int size = 0;
