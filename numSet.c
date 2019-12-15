@@ -143,26 +143,12 @@ void cln_dataL(numSet** set) {
 	while(isEndL(pin) == 0) {
 		pin = pin->left;
 	}
-	if(pin->data != 0) return;
-	else if(pin->data == 0) {
-		if(pin->right == NULL) { // 첫째 자리이면.
-			pin = *set;
-			*set = NULL;
-			free(pin);
-			return;
-		}
+	while(isEndR(pin) == 0 && pin->data == 0) {
+		if(pin->right == NULL) return; // 첫째 자리면
 		numSet* tmp = pin;
 		pin = pin->right;
 		pin->left = NULL;
 		free(tmp);
-		while(isEndR(pin) == 0) {
-			if(pin->data == 0) {
-				numSet* tmp1 = pin;
-				pin = pin->right;
-				pin->left = NULL;
-				free(tmp1);
-			} else break;
-		}
 	}
 }
 

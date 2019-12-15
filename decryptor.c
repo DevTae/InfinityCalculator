@@ -19,6 +19,7 @@ infinite* pop_back_sInf(stackInf **stack) {
 	infinite* data = (*stack)->data;
 	stackInf* temp = *stack;
 	(*stack) = (*stack)->next;
+	//free(temp); 그냥 free해버리면 안되는 구조라서 이렇게 함.
 	return data;
 }
 
@@ -108,6 +109,9 @@ infinite* calculateManager(infinite* first,
 infinite* calcul_box(char* elem, int option) {
 	static stackInf* numbers; // free
 	char operator;
+	// format : first operator second
+	infinite* first = NULL;
+	infinite* second = NULL;
 	if((option & INSERT_FIRST) == INSERT_FIRST) {
 		numbers = NULL; // null define.
 	} else if((option & INSERT_END) == INSERT_END) {
@@ -118,12 +122,12 @@ infinite* calcul_box(char* elem, int option) {
 		push_back_sInf(&numbers, initialize(elem));
 	} else if((option & INSERT_OPERATOR) == INSERT_OPERATOR) {
 		operator = *elem;
-		infinite* second = pop_back_sInf(&numbers);
-		infinite* first = pop_back_sInf(&numbers);
+		second = pop_back_sInf(&numbers);
+		first = pop_back_sInf(&numbers);
 		push_back_sInf(&numbers, 
 				calculateManager(first, second, operator));
-		freeInfinite(&first); // free allocated memory.
-		freeInfinite(&second); // free allocated memory.
+		freeInfinite(&first);
+		freeInfinite(&second);
 	} else if((option & INSERT_0REVERSE) == INSERT_0REVERSE) {
 		// 0을 집어넣고 top 과 top->next 의 값을 변경한다.
 		infinite* top = numbers->data;

@@ -13,7 +13,7 @@ infinite* add(infinite* a, infinite* b) {
 	int sizeL = MAX(aSizeL, bSizeL) + 1;
 	int sizeR = MAX(aSizeR, bSizeR);
 	char* store = (char*)malloc(sizeof(char) 
-			* (MAXDIGIT_PER_NUMBER*(sizeL+sizeR) + 1));
+			* (MAXDIGIT_PER_NUMBER*(sizeL+sizeR) + 2));
 	*store = '\0';
 	
 	int i = 0;
@@ -51,19 +51,29 @@ infinite* add(infinite* a, infinite* b) {
 		if(rtn_dataR(result->right, n) / 1000000000 != 0) {
 			if(n == 1) {
 				chg_dataL(&(result->left), 1, rtn_dataL(result->left, 1) + 1);
+				chg_dataR(&(result->right), 1, rtn_dataR(result->right, 1) % 1000000000);
 			} else {
 				chg_dataR(&(result->right), n, rtn_dataR(result->right, n) % 1000000000);
 				chg_dataR(&(result->right), n - 1, rtn_dataR(result->right, n - 1) + 1);
 			}
 		}
 	}
-	for(int h = 1; h < sizeL; h++) {
+	for(int h = 1; h <= sizeL; h++) {
 		if(rtn_dataL(result->left, h) / 1000000000 != 0){
 			chg_dataL(&(result->left), h, rtn_dataL(result->left, h) % 1000000000);
 			chg_dataL(&(result->left), h + 1, rtn_dataL(result->left, h + 1) + 1);
 		}
 	}
 	cln_dataL(&(result->left));
+	/*
+	printf("a:");
+	printInfinite(a);
+	printf("\nb:");
+	printInfinite(b);
+	printf("\nresult:");
+	printInfinite(result);
+	printf("\n");
+	*/
 	//더하기 끝난 infinite* 반환하기
 	return result;
 }
@@ -77,10 +87,10 @@ infinite* subtract(infinite* a, infinite* b) {
 	int bSizeL = rtn_sizeL(b->left);
 	int aSizeR = rtn_sizeR(a->right);
 	int bSizeR = rtn_sizeR(b->right);
-	int sizeL = MAX(aSizeL, bSizeL) + 1;
+	int sizeL = MAX(aSizeL, bSizeL);
 	int sizeR = MAX(aSizeR, bSizeR);
 	char* store = (char*)malloc(sizeof(char) 
-			* (MAXDIGIT_PER_NUMBER*(sizeL+sizeR) + 1));
+			* (MAXDIGIT_PER_NUMBER*(sizeL+sizeR) + 2));
 	*store = '\0';
 	
 	int i = 0;
@@ -134,6 +144,17 @@ infinite* subtract(infinite* a, infinite* b) {
             chg_dataL(&(result->left), h + 1, rtn_dataL(result->left, h + 1) - 1);
         }
     }
+	/*
+	printf("a:");
+	printInfinite(a);
+	printf("\nb:");
+	printInfinite(b);
+	printf("\nresult:");
+	printInfinite(result);
+	printf("\n");
+	*/
+	cln_dataL(&(result->left));
+
 	return result;
 }
 
@@ -244,7 +265,7 @@ infinite* multiply(infinite* a, infinite* b) {
 		*(*(board + arr_row-1) + i) %= 10;
 	}
 
-	/*	
+	/*
 	for(int i = 0; i < arr_col; i++)
 		printf("%d ", *(*(board+0)+i));
 	printf(" * 10^(%d)\n", aCardinal);
@@ -297,7 +318,8 @@ infinite* multiply(infinite* a, infinite* b) {
 	infinite* newinf = initialize(result);
 	free(result);
 	free(expr);
-	//cln_dataL(&(newinf->left)); // 불필요한 0값 지우기
+	
+	cln_dataL(&(newinf->left)); // 불필요한 0값 지우기
 	//cln_dataR(&(newinf->right)); // 불필요한 0값 지우기
 	return newinf;
 }

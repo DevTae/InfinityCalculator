@@ -75,7 +75,7 @@ infinite* initialize(char* before) {
 
 void printInfinite(infinite* inf) {
 	if(inf == NULL) return;
-	//if(inf->isMinus == 1) printf("-"); // isMinus
+	if(inf->isMinus == 1) printf("-"); // isMinus
 	if(inf->left == NULL) {
 		printf("0");
 	} else {
@@ -126,57 +126,29 @@ int infcmp(infinite* first, infinite* second) {
 void freeInfinite(infinite** inf) {
 	numSet* nsl = (*inf)->left;
 	numSet* nsr = (*inf)->right;
-
-	if(nsl != NULL) { // left freeing
-		while(isEndL(nsl) == 0) {
-			numSet* tmp = nsl;
-			nsl = nsl->left;
-			free(tmp);
-		}
-		if(nsl != NULL) free(nsl);
+	
+	// left numSet
+	while(isEndL(nsl) == 0) {
+		numSet* tmp = nsl;
+		nsl = nsl->left;
+		free(tmp);
 	}
-	if(nsr != NULL) { // right freeing
-		while(isEndR(nsr) == 0) {
-			numSet* tmp = nsr;
-			nsr = nsr->right;
-			free(tmp);
-		}
-		if(nsr != NULL) free(nsr);
+	if(nsl != NULL) free(nsl);
+	
+	// right numSet
+	while(isEndR(nsr) == 0) {
+		numSet* tmp = nsr;
+		nsr = nsr->right;
+		free(tmp);
 	}
-	if(*inf != NULL) free(*inf);
+	if(nsr != NULL) free(nsr);
+	
+	// infinite
+	if((*inf) != NULL) free(*inf);
 }
 
+// cln_dataInf() needs
 
-/*
-void freeInfinite(infinite** inf) {
-	numSet* nsl = (*inf)->left;
-	numSet* nsr = (*inf)->right;
-
-	if(nsl != NULL) { // left freeing
-		while(isEndL(nsl) == 0) {
-			nsl = nsl->left;
-		}
-		while(isEndR(nsl) == 0) {
-			numSet* tmp = nsl;
-			nsl = nsl->right;
-			free(tmp);
-		}
-		if(nsl != NULL) free(nsl);
-	}
-	if(nsr != NULL) { // right freeing
-		while(isEndR(nsr) == 0) {
-			nsr = nsr->right;
-		}
-		while(isEndL(nsr) == 0) {
-			numSet* tmp = nsr;
-			nsr = nsr -> left;
-			free(tmp);
-		}
-		if(nsr != NULL) free(nsr);
-	}
-	free(*inf);
-}
-*/
 /*
 // testing function main
 int main() {

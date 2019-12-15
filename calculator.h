@@ -66,7 +66,7 @@ char* substring_udf(char *cArr, int start, int size);
 infinite* initialize(char*);
 void printInfinite(infinite*);
 int infcmp(infinite*, infinite*);
-void freeInfinite(infinite** inf);
+void freeInfinite(infinite**);
 
 // calculate.c
 infinite* add(infinite*, infinite*);
