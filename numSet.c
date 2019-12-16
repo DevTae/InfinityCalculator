@@ -37,6 +37,7 @@ void push_backR(numSet** set, ONE_OF_NUMBERS data) {
 		numSet* temp = *set;
 		for(; isEndR(temp) == 0; temp = temp->right);
 		temp->right = newNumSet;
+		newNumSet->left = temp; // 버그 찾음.
 	}
 }
 
@@ -159,26 +160,16 @@ void cln_dataR(numSet** set) {
 	while(isEndR(pin) == 0) {
 		pin = pin->right;
 	}
-	if(pin->data != 0) return;
-	else if(pin->data == 0) {
-		if(pin->left == NULL) { // 첫째 자리이면.
-			pin = *set;
+	while(isEndL(pin) == 0 && pin->data == 0) {
+		if(pin->left == NULL) {
+			numSet* fset = *set;
+			free(fset);
 			*set = NULL;
-			free(pin);
-			return;
 		}
 		numSet* tmp = pin;
 		pin = pin->left;
 		pin->right = NULL;
 		free(tmp);
-		while(isEndL(pin) == 0) {
-			if(pin->data == 0 && pin->left != NULL) {
-				numSet* tmp1 = pin;
-				pin = pin->left;
-				pin->right = NULL;
-				free(tmp1);
-			} else break;
-		}
 	}
 }
 

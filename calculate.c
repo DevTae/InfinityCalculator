@@ -65,6 +65,7 @@ infinite* add(infinite* a, infinite* b) {
 		}
 	}
 	cln_dataL(&(result->left));
+	cln_dataR(&(result->right));
 	/*
 	printf("a:");
 	printInfinite(a);
@@ -154,7 +155,7 @@ infinite* subtract(infinite* a, infinite* b) {
 	printf("\n");
 	*/
 	cln_dataL(&(result->left));
-
+	cln_dataR(&(result->right));
 	return result;
 }
 
@@ -320,7 +321,7 @@ infinite* multiply(infinite* a, infinite* b) {
 	free(expr);
 	
 	cln_dataL(&(newinf->left)); // 불필요한 0값 지우기
-	//cln_dataR(&(newinf->right)); // 불필요한 0값 지우기
+	cln_dataR(&(newinf->right)); // 불필요한 0값 지우기
 	return newinf;
 }
 
